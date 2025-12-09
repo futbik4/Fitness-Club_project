@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=fitness_db
+      - POSTGRES_USER=fitness_user
+      - POSTGRES_PASSWORD=fitness_password
+    ports:
+      - "5432:5432"
+    networks:
+      - fitness_network
+
+  web:
+    build: .
+    volumes:
+      - ./backend:/app
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgres://fitness_user:fitness_password@db:5432/fitness_db
+      - SECRET_KEY=your-secret-key-here-change-in-production
+    depends_on:
+      - db
+    networks:
+      - fitness_network
+    command: >
+      sh -c "sleep 10 &&
+        python manage.py migrate &&
+        python manage.py runserver 0.0.0.0:8000"
+
+volumes:
+  postgres_data:
+
+networks:
+  fitness_network:
+    driver: bridge
