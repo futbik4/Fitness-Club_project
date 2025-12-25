@@ -3,10 +3,9 @@ from rest_framework.routers import DefaultRouter
 from . import views
 
 router = DefaultRouter()
-router.register(r'users', views.UserViewSet)
 router.register(r'members', views.MemberViewSet)
 router.register(r'trainers', views.TrainerViewSet)
-router.register(r'workout-sessions', views.WorkoutSessionViewSet)
+router.register(r'sessions', views.WorkoutSessionViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),

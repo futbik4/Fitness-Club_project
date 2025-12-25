@@ -9,7 +9,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="Fitness Club API",
         default_version='v1',
-        description="API for Fitness Club Management System",
+        description="API для фитнес-клуба",
     ),
     public=True,
     permission_classes=[permissions.AllowAny],
@@ -17,9 +17,7 @@ schema_view = get_schema_view(
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('apps.core.urls')),
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('api/', include('apps.core.urls')),
+    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger'),
 ]

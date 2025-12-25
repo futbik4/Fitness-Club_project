@@ -24,7 +24,7 @@ class Member(models.Model):
         ordering = ['-join_date']
     
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
+        return self.user.username
 
 class Trainer(models.Model):
     """
@@ -41,7 +41,7 @@ class Trainer(models.Model):
         ordering = ['-experience_years']
     
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name} - {self.specialization}"
+        return f"{self.user.username} - {self.specialization}"
 
 class WorkoutSession(models.Model):
     """
